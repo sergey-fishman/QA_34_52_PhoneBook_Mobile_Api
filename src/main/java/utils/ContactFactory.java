@@ -11,7 +11,7 @@ public class ContactFactory {
                 .name(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .email(faker.internet().emailAddress())
-                .phone(faker.phoneNumber().phoneNumber())
+                .phone(faker.number().digits(10))
                 .address(faker.address().fullAddress())
                 .description(faker.redDeadRedemption2().quote())
                 .build();

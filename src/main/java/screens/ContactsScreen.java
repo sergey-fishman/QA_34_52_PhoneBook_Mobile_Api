@@ -11,8 +11,24 @@ public class ContactsScreen extends BaseScreen{
 
     @AndroidFindBy(id = "com.sheygam.contactapp:id/emptyTxt")
     WebElement emptyText;
+    @AndroidFindBy(id = "com.sheygam.contactapp:id/add_contact_btn")
+    WebElement addContactBtn;
+    @AndroidFindBy(xpath = "//android.widget.Toast[@text=\"Contact was added!\"]")
+    WebElement widgetToast;
 
     public boolean validateEmptyText(String text) {
         return isTextInElementPresent(emptyText, text);
+    }
+
+    public boolean validateWidgetText(String text) {
+        return isTextInElementPresent(widgetToast, text);
+    }
+
+    public void clickAddContactBtn(){
+        clickWait(addContactBtn);
+    }
+
+    public boolean isAddContactBtnDisplayed(){
+        return addContactBtn.isDisplayed();
     }
 }
