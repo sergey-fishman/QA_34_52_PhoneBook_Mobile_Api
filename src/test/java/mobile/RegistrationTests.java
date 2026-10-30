@@ -24,7 +24,7 @@ public class RegistrationTests extends TestBase {
         user = positiveUser();
         registrationLoginScreen.typeForm(user);
         registrationLoginScreen.clickBtnRegistration();
-        Assert.assertTrue(new ContactsScreen(driver).validateEmptyText
+        Assert.assertTrue(new ContactsScreen(driver).validateEmptyContactsText
                 ("No Contacts. Add One more!"), "No Contacts. Add One more!");
     }
 }

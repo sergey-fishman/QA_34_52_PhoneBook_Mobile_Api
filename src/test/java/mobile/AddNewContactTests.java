@@ -35,11 +35,11 @@ public class AddNewContactTests extends TestBase {
     }
 
     @Test
-    public void addNewContactPositiveScreen(){
+    public void addNewContactPositiveTest(){
         contact = positiveContact();
         addNewContactScreen.typeContactForm(contact);
         addNewContactScreen.clickBtnCreate();
-        Assert.assertTrue(contactsScreen.validateWidgetText
-                ("Contact was added!"), "Contact was added!");
+        Assert.assertTrue(contactsScreen.validateWidgetAddContactText
+                ("Contact was added!"), "Has widget text Contact was added!");
     }
 }
