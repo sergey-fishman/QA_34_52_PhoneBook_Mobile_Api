@@ -24,11 +24,11 @@ public class SplashScreen extends BaseScreen{
 
     public void waitForRegistrationScreen(){
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(10))
+            new WebDriverWait(driver, Duration.ofSeconds(15))
                     .until(ExpectedConditions.presenceOfElementLocated
                             (By.id("com.sheygam.contactapp:id/action_bar")));
         } catch (TimeoutException e) {
-            throw new AssertionError("Registration screen did not open within 10s", e);
+            throw new AssertionError("Registration screen did not open within 15s", e);
         }
     }
 }

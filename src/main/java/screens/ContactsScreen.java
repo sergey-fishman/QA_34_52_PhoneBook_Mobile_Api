@@ -15,11 +15,15 @@ public class ContactsScreen extends BaseScreen{
     @AndroidFindBy(id = "com.sheygam.contactapp:id/emptyTxt")
     WebElement emptyText;
     @AndroidFindBy(id = "com.sheygam.contactapp:id/add_contact_btn")
-    WebElement addContactBtn;
+    WebElement addContactFAB;
     @AndroidFindBy(xpath = "//android.widget.Toast[@text=\"Contact was added!\"]")
     WebElement widgetToastAdd;
     @AndroidFindBy(xpath = "//android.widget.Toast[@text=\"Contact was updated!\"]")
     WebElement widgetToastUpdate;
+    @AndroidFindBy(accessibility = "More options")
+    WebElement optionsMenu;
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id=\"com.sheygam.contactapp:id/title\" and @text=\"Logout\"]")
+    WebElement btnLogout;
 
     @AndroidFindBy(id="com.sheygam.contactapp:id/rowName")
     List<WebElement> rowNamesList;
@@ -30,6 +34,14 @@ public class ContactsScreen extends BaseScreen{
             names.add(e.getText());
         }
         return names;
+    }
+
+    public void clickOptionsMenu() {
+        optionsMenu.click();
+    }
+
+    public void clickBtnLogout() {
+        btnLogout.click();
     }
 
     public boolean validateEmptyContactsText(String text) {
@@ -53,10 +65,10 @@ public class ContactsScreen extends BaseScreen{
     }
 
     public void clickAddContactBtn(){
-        clickWait(addContactBtn);
+        clickWait(addContactFAB);
     }
 
     public boolean isAddContactBtnDisplayed(){
-        return addContactBtn.isDisplayed();
+        return addContactFAB.isDisplayed();
     }
 }

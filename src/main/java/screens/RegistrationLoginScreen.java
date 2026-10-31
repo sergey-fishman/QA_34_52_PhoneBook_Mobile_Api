@@ -4,6 +4,10 @@ import dto.User;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Listeners;
+import utils.TestNGListener;
+
+@Listeners(TestNGListener.class)
 
 public class RegistrationLoginScreen extends BaseScreen{
     public RegistrationLoginScreen(AppiumDriver driver) {
@@ -28,7 +32,14 @@ public class RegistrationLoginScreen extends BaseScreen{
     }
 
     public void typeForm(User user){
-        inputUsername.sendKeys(user.getUsername());
-        inputPassword.sendKeys(user.getPassword());
+        type(inputUsername, user.getUsername());
+        type(inputPassword, user.getPassword());
+    }
+
+    public boolean isUserFormDisplayed() {
+        return inputUsername.isDisplayed()
+                && inputPassword.isDisplayed()
+                && registrationBtn.isDisplayed()
+                && loginBtn.isDisplayed();
     }
 }

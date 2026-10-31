@@ -10,7 +10,6 @@ import screens.*;
 
 import java.util.List;
 
-import static utils.ContactFactory.positiveContact;
 import static utils.PropertiesReader.getProperty;
 
 public class UpdateDeleteContactTests extends TestBase {
@@ -58,7 +57,7 @@ public class UpdateDeleteContactTests extends TestBase {
         List<String> namesBefore = contactsScreen.getNamesList();
         System.out.println(namesBefore);
         contactsScreen.deleteContactSwipe();
-        AlertScreen alertScreen = new AlertScreen(driver);
+        DialogScreen alertScreen = new DialogScreen(driver);
         alertScreen.clickBtnYes();
         List<String> namesAfter = contactsScreen.getNamesList();
         System.out.println(namesAfter);
