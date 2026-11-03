@@ -5,15 +5,19 @@ import dto.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import screens.ContactsScreen;
 import screens.DialogScreen;
 import screens.RegistrationLoginScreen;
 import screens.SplashScreen;
+import utils.PropertiesReader;
+
 import static utils.UserFactory.*;
 
 public class RegistrationTests extends TestBase {
     RegistrationLoginScreen registrationLoginScreen;
     User user;
+    SoftAssert softAssert;
 
     @BeforeMethod
     public void setRegistrationLoginScreen() {
@@ -76,5 +80,44 @@ public class RegistrationTests extends TestBase {
         Assert.assertTrue(new DialogScreen(driver)
                         .validateTextAlertMessage("{username=must be a well-formed email address}"),
                 "{username=must be a well-formed email address} is present in alert message");
+    }
+
+    @Test(dataProvider = "dataProviderWrongPassword", dataProviderClass = UserDataProvider.class)
+    public void registrationWrongPasswordFormatNegativeTest(User user) {
+        registrationLoginScreen.typeForm(user);
+        System.out.println(user);
+        registrationLoginScreen.clickBtnRegistration();
+        Assert.assertTrue(new DialogScreen(driver)
+                        .validateTextAlertMessage("{password= At least 8 characters;"),
+                "{password= At least 8 characters; is present in alert message");
+    }
+
+    @Test(dataProvider = "dataProviderWrongPassword", dataProviderClass = UserDataProvider.class)
+    public void registrationEmptyEmailWrongPasswordFormatNegativeTest(User user) {
+        softAssert = new SoftAssert();
+        user.setUsername("");
+        registrationLoginScreen.typeForm(user);
+        System.out.println(user);
+        registrationLoginScreen.clickBtnRegistration();
+        DialogScreen dialogScreen = new DialogScreen(driver);
+        softAssert.assertTrue(dialogScreen.validateTextAlertMessage("{password= At least 8 characters;"),
+                "{password= At least 8 characters; is present in alert message");
+        softAssert.assertTrue(dialogScreen.validateTextAlertMessage("username=must not be blank"),
+                "username=must not be blank is present in alert message");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void registrationExistingUserNegativeTest() {
+        user = User.builder()
+                .username(PropertiesReader.getProperty("base.properties", "username"))
+                .password(PropertiesReader.getProperty("base.properties", "password"))
+                .build();
+        registrationLoginScreen.typeForm(user);
+        System.out.println(user);
+        registrationLoginScreen.clickBtnRegistration();
+        Assert.assertTrue(new DialogScreen(driver)
+                        .validateTextAlertMessage("User already exists"),
+                "User already exists is present in alert message");
     }
 }

@@ -23,6 +23,11 @@ public class UserDataProvider {
         return readUsers("wrong_username.csv").iterator();
     }
 
+    @DataProvider
+    public Iterator<User> dataProviderWrongPassword() {
+        return readUsers("wrong_password.csv").iterator();
+    }
+
     private List<User> readUsers(String fileName) {
         List<User> userList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader
